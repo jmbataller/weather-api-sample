@@ -39,7 +39,7 @@ public class SwaggerConfig {
     private TypeResolver typeResolver;
 
     @Bean
-    public Docket checkoutApi() {
+    public Docket weatherApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("WeatherAPI")
                 .apiInfo(publicInfo())

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error" monitorInterval="60">
+
+    <Properties>
+        <Property name="logfile.pattern">[%d{yyyy-MM-dd HH:mm:ss.SSS}][WEATHER_SERVICE][%-5level][%t][%c{1}.%M:%L] - %m%n</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console_appender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%highlight{[%d{yyyy-MM-dd HH:mm:ss.SSS}][WEATHER_SERVICE][%-5level][%t][%c{1}.%M:%L] - %m%n}"/>
+        </Console>
+        <RollingRandomAccessFile name="rolling_file"
+                                 fileName="logs/app.log"
+                                 filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log"
+                                 immediateFlush="true"
+                                 append="false" ignoreExceptions="false">
+            <PatternLayout pattern="${logfile.pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <logger name="com.eurostar.integration.clients" additivity="false" level="debug">
+            <appender-ref ref="console_appender" level="debug" />
+            <AppenderRef ref="rolling_file" level="debug"/>
+        </logger>
+        <Root level="info">
+            <AppenderRef ref="console_appender" level="info"/>
+            <AppenderRef ref="rolling_file" level="info"/>
+        </Root>
+    </Loggers>
+</Configuration>
