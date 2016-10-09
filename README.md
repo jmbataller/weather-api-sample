@@ -13,6 +13,7 @@ Swagger docs
 
 TODO:
 
-- convert temperture to Celsius and Farenheit
-- Caching
-- Setup hystrix
+[x] Caching
+[x] Circuit breaker when calling weather 3rd party API
+[x] Integration tests
+[x] Unit tests

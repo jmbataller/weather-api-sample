@@ -9,6 +9,7 @@ import api.weather.exceptions.ServiceClientException;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,6 +17,9 @@ import java.time.*;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Weather service
+ */
 @Service
 public class WeatherServiceImpl implements WeatherService {
 
@@ -33,6 +37,7 @@ public class WeatherServiceImpl implements WeatherService {
      * @return
      */
     @Override
+    @Cacheable(cacheNames = "weather", key = "#city")
     @HystrixCommand(commandKey = "getWeather", ignoreExceptions = {ServiceClientException.class})
     public Weather getWeather(String city) {
 

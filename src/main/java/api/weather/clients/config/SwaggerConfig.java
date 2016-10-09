@@ -56,9 +56,7 @@ public class SwaggerConfig {
     }
 
     private Predicate<String> paths() {
-        return or(
-                regex("/carts.*"),
-                regex("/fees.*"));
+        return or(regex("/weather.*"));
     }
 
     private ApiInfo publicInfo() {

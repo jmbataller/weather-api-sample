@@ -14,6 +14,10 @@ spring:
       write_dates_as_timestamps: false
     deserialization:
       fail_on_unknown_properties: false
+  cache:
+    cache-names: weather
+    caffeine:
+      spec: maximumSize=2,expireAfterAccess=60s
 
 # feign and hystrix
 
@@ -30,3 +34,5 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000
+
+
