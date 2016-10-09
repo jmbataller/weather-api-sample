@@ -10,4 +10,6 @@ Swagger docs
 
 TODO:
 
-- convert temperture to Celsius
+- convert temperture to Celsius and Farenheit
+- Caching
+- Setup hystrix
