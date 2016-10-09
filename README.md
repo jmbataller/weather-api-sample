@@ -4,16 +4,33 @@
 # weather-api-sample
 Weather API sample
 
+### Requirements:
 
-Swagger docs
+- Java 8
+- Maven 3
+
+---
+
+### Build
+
+> mvn clean install
+
+### Run
+
+> java -jar target/weather-api-0.0.1-SNAPSHOT.jar
+
+### API Swagger docs
 
 > http://localhost:8080/swagger-ui.html
 
 
 
-TODO:
+Features:
 
-[x] Caching
-[x] Circuit breaker when calling weather 3rd party API
-[x] Integration tests
-[x] Unit tests
+- Caching using Caffeine cache - time to live of the cache is 60 seconds
+- Circuit breaker when calling weather 3rd party API
+
+TODOs:
+
+- Add more integration and unit tests
+
