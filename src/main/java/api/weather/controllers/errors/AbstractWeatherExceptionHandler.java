@@ -2,10 +2,12 @@ package api.weather.controllers.errors;
 
 import api.weather.exceptions.ErrorCode;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -40,6 +42,20 @@ public abstract class AbstractWeatherExceptionHandler extends ResponseEntityExce
 
     @Override
     protected ResponseEntity<Object> handleServletRequestBindingException(ServletRequestBindingException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        log.error(ex.getMessage(), ex);
+        ErrorMessages errors = createBadRequestErrorMessages(ex);
+        return new ResponseEntity<Object>(errors, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        log.error(ex.getMessage(), ex);
+        ErrorMessages errors = createBadRequestErrorMessages(ex);
+        return new ResponseEntity<Object>(errors, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         log.error(ex.getMessage(), ex);
         ErrorMessages errors = createBadRequestErrorMessages(ex);
         return new ResponseEntity<Object>(errors, HttpStatus.UNPROCESSABLE_ENTITY);
