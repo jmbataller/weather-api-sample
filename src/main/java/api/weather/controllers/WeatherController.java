@@ -7,13 +7,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import static api.weather.controllers.ResourceConstants.WEATHER_API;
-import static api.weather.controllers.ResourceConstants.WEATHER_ENDPOINT;
+import static api.weather.controllers.ResourceConstants.*;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -41,7 +40,7 @@ public class WeatherController {
     })
     @ResponseStatus(OK)
     @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
-    public WeatherResponse getWeather() {
+    public WeatherResponse getWeather(@RequestParam(value = CITY, required = true) String city) {
         return weatherService.getWeather("London");
     }
 }
