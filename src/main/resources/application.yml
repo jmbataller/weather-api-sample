@@ -20,3 +20,13 @@ spring:
 feign:
   hystrix:
     enabled: false
+
+hystrix:
+  command:
+    default:
+      fallback:
+        enabled: false
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

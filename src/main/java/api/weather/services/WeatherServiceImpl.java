@@ -2,9 +2,19 @@ package api.weather.services;
 
 import api.weather.clients.WeatherClient;
 import api.weather.clients.response.WeatherResponse;
+import api.weather.domain.Temperature;
+import api.weather.domain.TemperatureUnit;
+import api.weather.domain.Weather;
+import api.weather.exceptions.ServiceClientException;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.time.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class WeatherServiceImpl implements WeatherService {
@@ -17,8 +27,45 @@ public class WeatherServiceImpl implements WeatherService {
         this.apiKey = apiKey;
     }
 
+    /**
+     * Get temperature by city
+     * @param city
+     * @return
+     */
     @Override
-    public WeatherResponse getWeather(String city) {
-        return weatherClient.getWeather(city, apiKey);
+    @HystrixCommand(commandKey = "getWeather", ignoreExceptions = {ServiceClientException.class})
+    public Weather getWeather(String city) {
+
+        WeatherResponse response = weatherClient.getWeather(city, apiKey);
+
+        LocalDate date = LocalDateTime.ofInstant(Instant.ofEpochSecond(response.getDate()), ZoneId.of(ZoneOffset.UTC.getId())).toLocalDate();
+
+        LocalTime sunrise = LocalDateTime.ofInstant(Instant.ofEpochSecond(response.getSys().getSunrise()), ZoneId.of(ZoneOffset.UTC.getId())).toLocalTime();
+        LocalTime sunset = LocalDateTime.ofInstant(Instant.ofEpochSecond(response.getSys().getSunset()), ZoneId.of(ZoneOffset.UTC.getId())).toLocalTime();
+
+        String weatherDescription = response.getWeather().stream().findFirst().map(d -> d.getDescription()).orElse(null);
+
+        List<Temperature> temperature = convertTemperature(response.getMain().getTemp());
+
+        return Weather.builder()
+                .city(response.getCity())
+                .date(date)
+                .sunrise(sunrise)
+                .sunset(sunset)
+                .weatherDescription(weatherDescription)
+                .temperature(temperature)
+                .build();
+    }
+
+    /**
+     * Convert Kelvin temperature to Celsius and Fahrenheit
+     * @param kelvinTemp
+     * @return
+     */
+    private List<Temperature> convertTemperature(Double kelvinTemp) {
+        double celsius = kelvinTemp - 273.15;
+        double fahrenheit = (1.8 * celsius) + 32;
+        return Arrays.asList(Temperature.builder().temperture(BigDecimal.valueOf(celsius).setScale(2, BigDecimal.ROUND_HALF_UP)).unit(TemperatureUnit.C).build(),
+                Temperature.builder().temperture(BigDecimal.valueOf(fahrenheit).setScale(2, BigDecimal.ROUND_HALF_UP)).unit(TemperatureUnit.F).build());
     }
 }

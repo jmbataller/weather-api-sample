@@ -1,6 +1,7 @@
 package api.weather.controllers;
 
 import api.weather.clients.response.WeatherResponse;
+import api.weather.domain.Weather;
 import api.weather.services.WeatherService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDate;
 
 import static org.mockito.BDDMockito.*;
 import static org.junit.Assert.*;
@@ -31,7 +34,7 @@ public class WeatherControllerTest {
     public void getWeather_successfully() throws Exception {
 
         String cityValue = "London";
-        given(weatherService.getWeather(cityValue)).willReturn(WeatherResponse.builder().date(1).build());
+        given(weatherService.getWeather(cityValue)).willReturn(Weather.builder().date(LocalDate.now()).build());
 
         this.mvc.perform(get(WEATHER_ENDPOINT)
                 .param(CITY, cityValue)

@@ -1,6 +1,7 @@
 package api.weather.controllers;
 
 import api.weather.clients.response.WeatherResponse;
+import api.weather.domain.Weather;
 import api.weather.services.WeatherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,7 +41,7 @@ public class WeatherController {
     })
     @ResponseStatus(OK)
     @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
-    public WeatherResponse getWeather(@RequestParam(value = CITY, required = true) String city) {
-        return weatherService.getWeather("London");
+    public Weather getWeather(@RequestParam(value = CITY, required = true) String city) {
+        return weatherService.getWeather(city);
     }
 }
