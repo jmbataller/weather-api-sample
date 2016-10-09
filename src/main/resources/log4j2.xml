@@ -22,7 +22,7 @@
         </RollingRandomAccessFile>
     </Appenders>
     <Loggers>
-        <logger name="com.eurostar.integration.clients" additivity="false" level="debug">
+        <logger name="api.weather.clients" additivity="false" level="debug">
             <appender-ref ref="console_appender" level="debug" />
             <AppenderRef ref="rolling_file" level="debug"/>
         </logger>

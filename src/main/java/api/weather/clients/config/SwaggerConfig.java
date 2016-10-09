@@ -1,4 +1,4 @@
-package api.weather.config;
+package api.weather.clients.config;
 
 import api.weather.controllers.WeatherController;
 import com.fasterxml.classmate.TypeResolver;

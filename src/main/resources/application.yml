@@ -1,0 +1,22 @@
+
+# 3rd party weather API
+
+weather:
+  service:
+    api-key: 598d8eeae293208a1f0601637c7c3c5f
+    url: http://api.openweathermap.org/data/2.5
+
+# jackson configuration
+spring:
+  jackson:
+    serialization:
+      write_empty_json_arrays: false
+      write_dates_as_timestamps: false
+    deserialization:
+      fail_on_unknown_properties: false
+
+# feign and hystrix
+
+feign:
+  hystrix:
+    enabled: false
