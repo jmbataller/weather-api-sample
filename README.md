@@ -23,7 +23,10 @@ Weather API sample
 
 > http://localhost:8080/swagger-ui.html
 
+### API operation samples:
 
+> curl http://localhost:8080//weather?city=London
+> curl http://localhost:8080//weather?city=HongKong
 
 Features:
 

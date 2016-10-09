@@ -2,6 +2,7 @@ package api.weather.clients;
 
 import api.weather.clients.errors.ServiceErrorDecoder;
 import api.weather.clients.response.WeatherResponse;
+import api.weather.domain.City;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,5 +17,5 @@ public interface WeatherClient {
     String API_KEY = "APPID";
 
     @RequestMapping(value = "/weather", method = RequestMethod.GET, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    WeatherResponse getWeather(@RequestParam(CITY) String city, @RequestParam(API_KEY) String apiKey);
+    WeatherResponse getWeather(@RequestParam(CITY) City city, @RequestParam(API_KEY) String apiKey);
 }

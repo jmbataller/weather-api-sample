@@ -2,6 +2,7 @@ package api.weather.services;
 
 import api.weather.clients.WeatherClient;
 import api.weather.clients.response.WeatherResponse;
+import api.weather.domain.City;
 import api.weather.domain.Temperature;
 import api.weather.domain.TemperatureUnit;
 import api.weather.domain.Weather;
@@ -39,7 +40,7 @@ public class WeatherServiceImpl implements WeatherService {
     @Override
     @Cacheable(cacheNames = "weather", key = "#city")
     @HystrixCommand(commandKey = "getWeather", ignoreExceptions = {ServiceClientException.class})
-    public Weather getWeather(String city) {
+    public Weather getWeather(City city) {
 
         WeatherResponse response = weatherClient.getWeather(city, apiKey);
 

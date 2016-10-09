@@ -5,6 +5,7 @@ import api.weather.clients.response.Main;
 import api.weather.clients.response.SysInfo;
 import api.weather.clients.response.WeatherDescription;
 import api.weather.clients.response.WeatherResponse;
+import api.weather.domain.City;
 import lombok.extern.log4j.Log4j2;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,10 +40,10 @@ public class WeatherIntegrationTest {
 
     @Before
     public void setup() {
-        given(weatherClient.getWeather("London", apiKey))
+        given(weatherClient.getWeather(City.London, apiKey))
                 .willReturn(WeatherResponse.builder()
                         .date(1476041385L)
-                        .city("London")
+                        .city(City.London.name())
                         .main(Main.builder().temp(284D).build())
                         .weather(Arrays.asList(WeatherDescription.builder().description("light rain").build()))
                         .sys(SysInfo.builder().sunrise(1475993779L).sunset(1476033461L).build())

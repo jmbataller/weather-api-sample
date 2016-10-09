@@ -1,6 +1,7 @@
 package api.weather.controllers;
 
 import api.weather.clients.response.WeatherResponse;
+import api.weather.domain.City;
 import api.weather.domain.Weather;
 import api.weather.services.WeatherService;
 import org.junit.Test;
@@ -33,11 +34,10 @@ public class WeatherControllerTest {
     @Test
     public void getWeather_successfully() throws Exception {
 
-        String cityValue = "London";
-        given(weatherService.getWeather(cityValue)).willReturn(Weather.builder().date(LocalDate.now()).build());
+        given(weatherService.getWeather(City.London)).willReturn(Weather.builder().date(LocalDate.now()).build());
 
         this.mvc.perform(get(WEATHER_ENDPOINT)
-                .param(CITY, cityValue)
+                .param(CITY, City.London.name())
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.dt").value("1"));
