@@ -24,8 +24,11 @@ Weather API sample
 
 ### API operation samples:
 
-> curl http://localhost:8080//weather?city=London
-> curl http://localhost:8080//weather?city=HongKong
+```
+curl http://localhost:8080//weather?city=London
+
+curl http://localhost:8080//weather?city=HongKong
+```
 
 ### Web form
 
