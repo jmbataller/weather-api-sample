@@ -13,6 +13,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Temperature {
 
-    private BigDecimal temperture;
+    private BigDecimal temperature;
     private TemperatureUnit unit;
 }
