@@ -27,12 +27,17 @@ Weather API sample
 > curl http://localhost:8080//weather?city=London
 > curl http://localhost:8080//weather?city=HongKong
 
-Features:
+### Web form
 
-- Caching using Caffeine cache - time to live of the cache is 60 seconds
-- Circuit breaker when calling weather 3rd party API
+> http://localhost:8080/index.html
 
 TODOs:
 
 - Add more integration and unit tests
+- Add styling to web form
+
+Extra features:
+
+- Caching using Caffeine cache - time to live of the cache is 60 seconds
+- Circuit breaker when calling weather 3rd party API
 

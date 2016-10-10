@@ -1,0 +1,71 @@
+<!doctype html>
+
+<html>
+<head>
+    <title>Weather London / Hong Kong</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+
+<form id="cityForm" onchange="getWeather($('#city').val())">
+    <select id="city" name="city">
+        <option value="London">London</option>
+        <option value="HongKong">Hong Kong</option>
+    </select>
+</form>
+
+<br/>
+<div id="info" name="info">
+    Date: <input type="text" name="date" id="date"  value="">
+    <br/>
+    City: <input type="text" name="cityName" id="cityName"  value="">
+    <br/>
+    Sunrise time: <input type="text" name="sunrise" id="sunrise"  value="">
+    <br/>
+    Sunset time: <input type="text" name="sunset" id="sunset"  value="">
+    <br/>
+    Weather: <input type="text" name="weather" id="weather"  value="">
+    <br/>
+    Temperature: <input type="text" name="temperature" id="temperature"  value="" size="50>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+
+  getWeather($('#city').val());
+
+  function getWeather(city) {
+
+    // construct an HTTP request
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/weather" + '?city=' + city, true);
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhr.send();
+
+    xhr.onloadend = function () {
+
+      status = xhr.status;
+	  data = JSON.parse(xhr.responseText);
+
+      console.log(JSON.stringify(data));
+
+      if (this.status >= 200 && this.status < 400) {
+        $('#date').val(data.date);
+        $('#cityName').val(data.city);
+        $('#sunrise').val(data.sunrise);
+        $('#sunset').val(data.sunset);
+        $('#weather').val(data.weatherDescription);
+        $('#temperature').val(data.temperature[0].temperature + " Celsius - " + data.temperature[1].temperature + " Fahrenheit");
+      } else {
+        console.log('Error. Status = ' + data.status)
+      }
+    };
+  }
+
+
+</script>
+
+</body>
+
+</html>
