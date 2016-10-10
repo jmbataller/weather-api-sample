@@ -41,6 +41,7 @@ TODOs:
 
 Extra features:
 
+- Swagger docs
 - Caching using Caffeine cache - time to live of the cache is 60 seconds
 - Circuit breaker when calling weather 3rd party API
 

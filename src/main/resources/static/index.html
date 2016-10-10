@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Weather London / Hong Kong</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 <body>
@@ -29,11 +30,12 @@
     Temperature: <input type="text" name="temperature" id="temperature"  value="" size="50>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="jquery.min.js"></script>
 
 <script>
 
   getWeather($('#city').val());
+
 
   function getWeather(city) {
 
@@ -56,7 +58,7 @@
         $('#sunrise').val(data.sunrise);
         $('#sunset').val(data.sunset);
         $('#weather').val(data.weatherDescription);
-        $('#temperature').val(data.temperature[0].temperature + " Celsius - " + data.temperature[1].temperature + " Fahrenheit");
+        $('#temperature').val(data.temperature[0].temperature + " C - " + data.temperature[1].temperature + " F");
       } else {
         console.log('Error. Status = ' + data.status)
       }
