@@ -19,7 +19,9 @@ public class Weather {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
     private String city;
+    @JsonFormat(pattern="h:mm a")
     private LocalTime sunrise;
+    @JsonFormat(pattern="h:mm a")
     private LocalTime sunset;
     private String weatherDescription;
     private List<Temperature> temperature;

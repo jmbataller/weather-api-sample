@@ -40,6 +40,6 @@ public class WeatherControllerTest {
                 .param(CITY, City.London.name())
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.dt").value("1"));
+                .andExpect(jsonPath("$.date").value("1"));
     }
 }

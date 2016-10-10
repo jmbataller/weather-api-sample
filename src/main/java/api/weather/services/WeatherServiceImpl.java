@@ -70,7 +70,7 @@ public class WeatherServiceImpl implements WeatherService {
      */
     private List<Temperature> convertTemperature(Double kelvinTemp) {
         double celsius = kelvinTemp - 273.15;
-        double fahrenheit = (1.8 * celsius) + 32;
+        double fahrenheit = (1.8 * kelvinTemp) - 459.67;
         return Arrays.asList(Temperature.builder().temperture(BigDecimal.valueOf(celsius).setScale(2, BigDecimal.ROUND_HALF_UP)).unit(TemperatureUnit.C).build(),
                 Temperature.builder().temperture(BigDecimal.valueOf(fahrenheit).setScale(2, BigDecimal.ROUND_HALF_UP)).unit(TemperatureUnit.F).build());
     }
