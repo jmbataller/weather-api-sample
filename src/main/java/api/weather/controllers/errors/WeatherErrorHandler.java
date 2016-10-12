@@ -70,7 +70,7 @@ public class WeatherErrorHandler extends AbstractWeatherExceptionHandler {
     }
 
     /**
-     * Convert hystrix failure type to checkout error code
+     * Convert hystrix failure type to weather error code
      *
      * @param failureType
      * @return
